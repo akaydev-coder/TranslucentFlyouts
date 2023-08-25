@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "Utils.hpp"
 #include "Hooking.hpp"
 #include "DXHelper.hpp"
 
@@ -14,7 +15,7 @@ BOOL WINAPI LazyDX::InternalHook::FreeLibrary(
 	HMODULE hLibModule
 )
 {
-	auto& dxList{g_internalHook.dxList};
+	auto dxList{g_internalHook.dxList};
 	auto actualFreeLibrary{g_internalHook.actualFreeLibrary};
 
 	if (hLibModule == HINST_THISCOMPONENT)
@@ -22,11 +23,11 @@ BOOL WINAPI LazyDX::InternalHook::FreeLibrary(
 		for (auto it = dxList.begin(); it != dxList.end(); it++)
 		{
 			auto& lazyDX{*it};
+
 			lazyDX->DestroyDeviceResources();
 			lazyDX->DestroyDeviceIndependentResources();
 		}
 		dxList.clear();
-		g_internalHook.ShutdownHook();
 
 		auto f = [](PTP_CALLBACK_INSTANCE pci, PVOID)
 		{
@@ -246,6 +247,8 @@ void LazyD3D::CreateDeviceResources()
 {
 	try
 	{
+		auto CleanUp{Utils::RoInit()};
+
 		com_ptr<IDXGIDevice3> dxgiDevice{nullptr};
 		com_ptr<ID3D11Device> d3dDevice{nullptr};
 

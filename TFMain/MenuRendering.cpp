@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DXHelper.hpp"
 #include "RegHelper.hpp"
 #include "ThemeHelper.hpp"
@@ -8,12 +8,6 @@
 using namespace std;
 using namespace wil;
 using namespace TranslucentFlyouts;
-
-MenuRendering& MenuRendering::GetInstance()
-{
-	static MenuRendering instance{};
-	return instance;
-}
 
 HRESULT MenuRendering::DoCustomThemeRendering(HDC hdc, bool darkMode, int partId, int stateId, const RECT& clipRect, const RECT& paintRect)
 {
@@ -337,7 +331,7 @@ HRESULT MenuRendering::DoCustomThemeRendering(HDC hdc, bool darkMode, int partId
 							L"DarkMode_Color",
 							MenuHandler::darkMode_HotColor,
 							false
-				);
+						);
 			}
 			else
 			{
@@ -346,7 +340,7 @@ HRESULT MenuRendering::DoCustomThemeRendering(HDC hdc, bool darkMode, int partId
 							L"LightMode_Color",
 							MenuHandler::lightMode_HotColor,
 							false
-				);
+						);
 			}
 
 			DWORD enableThemeColorization
@@ -396,16 +390,6 @@ HRESULT MenuRendering::DoCustomThemeRendering(HDC hdc, bool darkMode, int partId
 	return E_NOTIMPL;
 }
 
-optional<shared_hbitmap> MenuRendering::PromiseAlpha(HBITMAP bitmap)
-{
-	if (SUCCEEDED(Utils::PrepareAlpha(bitmap)))
-	{
-		return nullopt;
-	}
-
-	return shared_hbitmap{ThemeHelper::ConvertTo32BPP(bitmap)};
-}
-
 HRESULT MenuRendering::BltWithAlpha(
 	HDC   hdcDest,
 	int   xDest,
@@ -428,12 +412,23 @@ HRESULT MenuRendering::BltWithAlpha(
 		ThemeHelper::IsOemBitmap(hBitmap)
 	);
 
-	auto bitmap{PromiseAlpha(hBitmap)};
-	RETURN_LAST_ERROR_IF(bitmap && !bitmap.value().get());
-	auto selectedObject
+	unique_hbitmap bitmap{Utils::Promise32BPP(hBitmap)};
+	RETURN_LAST_ERROR_IF_NULL(bitmap);
+	auto color{ RegHelper::TryGetDword(L"Menu", L"ColorTreatAsTransparent", false) };
+	if (color && !Utils::IsBitmapSupportAlpha(hBitmap))
 	{
-		(bitmap ? wil::SelectObject(hdcSrc, bitmap.value().get()) : optional<unique_select_object>{nullopt})
-	};
+		Utils::BitmapApplyEffect(
+			bitmap.get(),
+			{
+				std::make_shared<Utils::SpriteEffect>(
+					color.value(),
+					RegHelper::GetDword(L"Menu", L"ColorTreatAsTransparentThreshold", 50, false)
+				) 
+			}
+		);
+	}
+	auto selectedObject{wil::SelectObject(hdcSrc, bitmap.get())};
+
 	RETURN_IF_WIN32_BOOL_FALSE(
 		GdiAlphaBlend(
 			hdcDest,

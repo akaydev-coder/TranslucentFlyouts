@@ -3,9 +3,11 @@
 因此我们呼吁大家一起完善这份文档，任何PR都是受欢迎的！
 ## 其它语言
 [English](../en-us/CONFIG.md)  
+[Deutsch](../de-de/CONFIG.md)  
 ## 描述
 目标版本：
 - V2.0.0-alpha.4
+- V2.0.0
 > 注意:   
 > 不支持更早的版本，对于更新的版本而言，该页面及子页面所显示的内容可能已经过时。   
 
@@ -15,6 +17,7 @@
 有关的子项，见：
 - [Menu](./Menu/CONFIG.md)  
 - [DropDown](./DropDown/CONFIG.md)  
+- [Tooltip](./Tooltip/CONFIG.md)  
 ## 值
 类型: <b>DWORD</b>
 <table>

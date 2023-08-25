@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "RegHelper.hpp"
 
 using namespace std;
@@ -48,13 +48,74 @@ DWORD RegHelper::GetDword(std::wstring_view subItemName, std::wstring_view value
 			 );
 		if (FAILED(hr))
 		{
-			reg::get_value_dword_nothrow(
+			hr = reg::get_value_dword_nothrow(
 				HKEY_LOCAL_MACHINE, g_regPath.data(), valueName.data(), &regValue
 			);
 		}
 
 		LOG_HR_IF(hr, FAILED(hr) && hr != HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND));
-	}();
+	}
+	();
 
+	return regValue;
+}
+
+std::optional<DWORD> RegHelper::TryGetDword(std::wstring_view subItemName, std::wstring_view valueName, bool useFallback)
+{
+	HRESULT hr{ S_OK };
+	DWORD regValue{ 0 };
+
+	if (subItemName.empty() && !useFallback)
+	{
+		return nullopt;
+	}
+
+	if (!subItemName.empty())
+	{
+		auto subKeyName
+		{
+			format(L"{}\\{}", g_regPath, subItemName)
+		};
+		hr = reg::get_value_dword_nothrow(
+			HKEY_CURRENT_USER, subKeyName.c_str(), valueName.data(), &regValue
+		);
+
+		if (FAILED(hr))
+		{
+			hr = reg::get_value_dword_nothrow(
+				HKEY_LOCAL_MACHINE, subKeyName.c_str(), valueName.data(), &regValue
+			);
+		}
+		LOG_HR_IF(hr, FAILED(hr) && hr != HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND));
+
+		if (!useFallback)
+		{
+			if (SUCCEEDED(hr))
+			{
+				return regValue;
+			}
+			else
+			{
+				return nullopt;
+			}
+		}
+	}
+
+	hr = reg::get_value_dword_nothrow(
+		HKEY_CURRENT_USER, g_regPath.data(), valueName.data(), &regValue
+	);
+	if (FAILED(hr))
+	{
+		hr = reg::get_value_dword_nothrow(
+			HKEY_LOCAL_MACHINE, g_regPath.data(), valueName.data(), &regValue
+		);
+
+		if (FAILED(hr))
+		{
+			return nullopt;
+		}
+	}
+
+	LOG_HR_IF(hr, FAILED(hr) && hr != HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND));
 	return regValue;
 }

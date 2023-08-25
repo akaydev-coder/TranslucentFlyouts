@@ -1,51 +1,62 @@
-#pragma once
+﻿#pragma once
 #include "pch.h"
-#include "Utils.hpp"
-#include "Hooking.hpp"
-#include "ThemeHelper.hpp"
-#include "EffectHelper.hpp"
-#include "MenuHandler.hpp"
-#include "UxThemePatcher.hpp"
-#include "ImmersiveContextMenuPatcher.hpp"
 
 namespace TranslucentFlyouts
 {
-	class MainDLL
+	namespace TFMain
 	{
-	public:
-		static MainDLL& GetInstance();
-		~MainDLL() noexcept = default;
-		MainDLL(const MainDLL&) = delete;
-		MainDLL& operator=(const MainDLL&) = delete;
-
-		static inline bool IsHookGlobalInstalled()
+		class InteractiveIO
 		{
-			return g_hHook != nullptr;
-		}
-		static HRESULT InstallHook();
-		static HRESULT UninstallHook();
-		static bool IsCurrentProcessInBlockList();
-		void Startup();
-		void Shutdown();
+		public:
+			~InteractiveIO();
 
-		using Callback = std::function<void(HWND, DWORD)>;
+			enum class StringType
+			{
+				Notification,
+				Warning,
+				Error
+			};
+			enum class WaitType
+			{
+				NoWait,
+				WaitYN,
+				WaitAnyKey
+			};
 
-		void AddCallback(Callback callback);
-		void DeleteCallback(Callback callback);
-	private:
-		MainDLL();
-		static void CALLBACK HandleWinEvent(
+			// Return true/false if waitType is YN, otherwise always return true.
+			bool OutputString(
+				StringType strType,
+				WaitType waitType,
+				UINT strResourceId,
+				std::wstring_view prefixStr,
+				std::wstring_view additionalStr,
+				bool requireConsole = false
+			) const;
+
+		private:
+			static void Startup();
+			static void Shutdown();
+		};
+
+		void CALLBACK HandleWinEvent(
 			HWINEVENTHOOK hWinEventHook, DWORD dwEvent, HWND hWnd,
 			LONG idObject, LONG idChild,
 			DWORD dwEventThread, DWORD dwmsEventTime
 		);
-		static HWINEVENTHOOK g_hHook;
 
-		bool m_startup{false};
-		std::vector<Callback> m_callbackList{};
+		using Callback = std::function<void(HWND, DWORD)>;
+		void AddCallback(Callback callback);
+		void DeleteCallback(Callback callback);
 
-		MenuHandler& m_menuHandler{MenuHandler::GetInstance()};
-		UxThemePatcher& m_uxthemePatcher{UxThemePatcher::GetInstance()};
-		ImmersiveContextMenuPatcher& m_immersiveContextMenuPatcher{ImmersiveContextMenuPatcher::GetInstance()};
-	};
+		void Startup();
+		void Shutdown();
+
+		void Prepare();
+
+		static constexpr DWORD lightMode_GradientColor{ 0x9EDDDDDD };
+		static constexpr DWORD darkMode_GradientColor{ 0x412B2B2B };
+		void ApplyBackdropEffect(std::wstring_view keyName, HWND hWnd, bool darkMode, DWORD darkMode_GradientColor, DWORD lightMode_GradientColor);
+		HRESULT ApplyRoundCorners(std::wstring_view keyName, HWND hWnd);
+		HRESULT ApplySysBorderColors(std::wstring_view keyName, HWND hWnd, bool useDarkMode, DWORD darkMode_BorderColor, DWORD lightMode_BorderColor);
+	}
 }

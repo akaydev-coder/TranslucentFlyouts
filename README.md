@@ -6,8 +6,8 @@ TranslucentFlyouts V1 has been moved to [TranslucentFlyoutsV1](https://github.co
 **TranslucentFlyouts uses [LGNU V3 license](./COPYING.LESSER) started from V2.**  
 
 [![license](https://img.shields.io/github/license/ALTaleX531/TranslucentFlyouts.svg)](https://www.gnu.org/licenses/lgpl-3.0.en.html)
-[![Github All Releases](https://img.shields.io/github/downloads/ALTaleX531/TranslucentFlyouts/total.svg)](https://github.com/QL-Win/QuickLook/releases)
-[![GitHub release](https://img.shields.io/github/release/ALTaleX531/TranslucentFlyouts.svg)](https://github.com/QL-Win/QuickLook/releases/latest)
+[![Github All Releases](https://img.shields.io/github/downloads/ALTaleX531/TranslucentFlyouts/total.svg)](https://github.com/ALTaleX531/TranslucentFlyouts/releases)
+[![GitHub release](https://img.shields.io/github/release/ALTaleX531/TranslucentFlyouts.svg)](https://github.com/ALTaleX531/TranslucentFlyouts/releases/latest)
 <img src="https://img.shields.io/badge/language-c++-F34B7D.svg"/>
 <img src="https://img.shields.io/github/last-commit/ALTaleX531/TranslucentFlyouts.svg"/>  
 
@@ -16,7 +16,7 @@ TranslucentFlyouts V1 has been moved to [TranslucentFlyoutsV1](https://github.co
 ## Catalog
 - [Gallery](#gallery)
 - [How to use](#how-to-use)
-- [Config](./Config/zh-cn/CONFIG.md)
+- [Config](./Config/en-us/CONFIG.md)
 - [Limitations & Compatibility](#limitations-and-compatibility)
 - [Dependencies & References](#dependencies-and-references)
 ## Gallery
@@ -46,10 +46,8 @@ Windows 11
 <details><summary><b>Fluent Animations</b></summary>
 
 ![Sample 1](./Images/FluentAnimations/Sample1.gif)   
-[Download Preset](./Preset/Sample1.reg)   
 
 ![Sample 2](./Images/FluentAnimations/Sample2.gif)   
-[Download Preset](./Preset/Sample2.reg)   
 
 </details>
 
@@ -59,15 +57,13 @@ Windows 11
 1. Download the compiled program archive from the [Release](https://github.com/ALTaleX531/TranslucentFlyouts/releases/latest) page.
 2. Unzip it to a location such as "`C:\Program Files`".
 3. Run "`install.cmd`" as administrator.
-4. Logoff to take effect.  
 
 > [Note!]:   
 > **Downloading symbol files from Microsoft server is required at the first time or after a windows update, otherwise some functionalities will be unavailable!**  
 
 ### Uninstall
 1. Run "`uninstall.cmd`" as administrator.
-2. Logoff to take effect.  
-3. Delete the remaining files.
+2. Delete the remaining files. (It is recommended to logoff before doing it)
 
 ## Limitations and Compatibility
 ### Here are some situations that TranslucentFlyouts will always be automatically disabled.

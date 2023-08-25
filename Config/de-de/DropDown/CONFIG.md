@@ -1,4 +1,4 @@
-#Dropdown-Liste
+# Dropdown
 [Zurück zur vorherigen Ebene](../CONFIG.md)
 ## Beschreibung
 Speicherort: `HKEY_CURRENT_USER\SOFTWARE\TranslucentFlyouts\DropDown`

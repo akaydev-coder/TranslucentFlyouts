@@ -124,6 +124,10 @@
 		"selected_items":
 		[
 			[
+				"project",
+				"Project: Close"
+			],
+			[
 				"mar",
 				"Markdown Preview: Preview in Browser"
 			],
@@ -630,10 +634,6 @@
 			[
 				"Package Control: in",
 				"Package Control: Install Package"
-			],
-			[
-				"package ",
-				"Package Control: Install Package"
 			]
 		],
 		"width": 0.0
@@ -674,29 +674,11 @@
 	},
 	"expanded_folders":
 	[
-		"/Y/github/TranslucentFlyouts",
-		"/Y/github/TranslucentFlyouts/Config",
-		"/Y/github/TranslucentFlyouts/Config/de-de",
-		"/Y/github/TranslucentFlyouts/Config/de-de/DropDown",
-		"/Y/github/TranslucentFlyouts/Config/de-de/Menu",
-		"/Y/github/TranslucentFlyouts/Config/de-de/Menu/Animation",
-		"/Y/github/TranslucentFlyouts/Config/de-de/Menu/CustomRendering",
-		"/Y/github/TranslucentFlyouts/Config/de-de/Menu/DisabledHot",
-		"/Y/github/TranslucentFlyouts/Config/de-de/Menu/Focusing",
-		"/Y/github/TranslucentFlyouts/Config/de-de/Menu/Hot",
-		"/Y/github/TranslucentFlyouts/Config/de-de/Menu/Separator",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/DropDown",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/Menu",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/Menu/Animation",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/Menu/CustomRendering",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/Menu/DisabledHot",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/Menu/Focusing",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/Menu/Hot",
-		"/Y/github/TranslucentFlyouts/Config/zh-cn/Menu/Separator"
+		"/Y/github/TranslucentFlyouts"
 	],
 	"file_history":
 	[
+		"/C/Users/KaYo Shin/Desktop/deeplinks categorized.txt",
 		"/Y/github/TranslucentFlyouts/Config/zh-cn/CONFIG.md",
 		"/Y/github/TranslucentFlyouts/Config/de-de/Menu/CONFIG.md",
 		"/Y/github/TranslucentFlyouts/Config/de-de/CONFIG.md",
@@ -823,8 +805,7 @@
 		"/C/Users/KaYo Shin/AppData/Local/Temp/vmware-KaYo Shin/vmware-ui-26140.log",
 		"/G/Downloads/locale.mo",
 		"/C/Program Files (x86)/Steam/steamui/skins/Fluent For Steam/libraryroot.custom.css",
-		"/C/Users/KaYo Shin/Desktop/TRANSPARENT/Transparent.CURTAINSTYLE",
-		"/V/storage.x02.media.versalife/Design Factory/Ten Design Engine/_Soft 7 2021/Transparent_Blur_Aero (Bearbeitet)/Transparent_Blur_Aero (Bearbeitet).CURTAINSTYLE"
+		"/C/Users/KaYo Shin/Desktop/TRANSPARENT/Transparent.CURTAINSTYLE"
 	],
 	"find":
 	{
@@ -842,6 +823,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"books",
 			"Lichtmodus",
 			"<dt><b>",
 			"“",
@@ -995,7 +977,7 @@
 	"project": "TranslucentFlyouts2.sublime-project",
 	"replace":
 	{
-		"height": 114.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":

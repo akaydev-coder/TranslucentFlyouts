@@ -10,7 +10,7 @@
 - [Separator](./Separator/CONFIG.md)    
 ## 值
 类型: <b>DWORD</b>  
-> 继承于[TranslucentFlyouts](..\CONFIG.md)，同样使用其中的值
+> 继承于[TranslucentFlyouts](../CONFIG.md)，同样使用其中的值
 <table>
 <tr>
 <th>名称</th>
@@ -97,7 +97,7 @@
 <td width="10%">
 <dl>
 <dt><b>NoModernAppBackgroundColor</b></dt>
-<dt>默认值: 0</dt>
+<dt>默认值: 1</dt>
 </dl>
 </td>
 <td width="20%">
